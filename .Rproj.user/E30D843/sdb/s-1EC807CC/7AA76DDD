@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#set up initial variables, gets number of rows\nloop_start <-1 #Which row to start on\nloop_count <-1 #Not using anymore\nloop_stop <-as.integer(nrow(mydata))\n#The function get_meta_content uses the variable xpath\nxpath <- as.character(\"//meta[@property='og:title']\")\n#Set the column for the new data\nnew_column <- 11\n#Here comes the loop\n#for each row the url will get pulled an the resulting meta contetn will be added to column 11\nfor (i in loop_start:loop_stop){\n  \nresult_content <- as.character(get_meta_content(as.character(mydata[[loop_start,2]])))\nmydata[[loop_start,new_column]] <- result_content\nloop_start <- loop_start +1\nSys.sleep(1) #Delay to prevent the server getting angry for requests\n}\n\n#Don't Tell Mom the Babysitter is Dead\ncat(\"The Dishes are done man. I stopped on row:\", loop_start) \n#Eventually I need to add an Try Catch function to move through errors like 403 and 503\n#For now if the loop dies it just spits the number it was working on\n\n\n",
+    "created" : 1468640760571.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3198599017",
+    "id" : "7AA76DDD",
+    "lastKnownWriteTime" : 1468641960,
+    "last_content_update" : 1468643588430,
+    "path" : "~/data_science/Web Scraper in R.R",
+    "project_path" : "Web Scraper in R.R",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

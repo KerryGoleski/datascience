@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#set up initial variables, gets number of rows\nloop_start <-1 #Which row to start on\nloop_count <-1 #Not using anymore\nloop_stop <-as.integer(nrow(mydata))\n#The function get_meta_content uses the variable xpath\nxpath <- as.character(\"//meta[@property='og:title']\")\n#Set the column for the new data\nnew_column <- 11\n#Here comes the loop\n#for each row the url will get pulled an the resulting meta contetn will be added to \"new_column\"\nfor (i in loop_start:loop_stop){\n\ntryCatch(\n  {\n    # Just to highlight: if you want to use more than one \n    # R expression in the \"try\" part then you'll have to \n    # use curly brackets.\n    # 'tryCatch()' will return the last evaluated expression \n    # in case the \"try\" part was completed successfully\n    \n    result_content <- as.character(get_meta_content(as.character(mydata[[loop_start,2]])))\n    mydata[[loop_start,new_column]] <- iconv(result_content) #iconv fixes some text encoding issues\n    message(paste( \"Completed Row: \", loop_start)) \n    # The return value of `readLines()` is the actual value \n    # that will be returned in case there is no condition \n    # (e.g. warning or error). \n    # You don't need to state the return value via `return()` as code \n    # in the \"try\" part is not wrapped insided a function (unlike that\n    # for the condition handlers for warnings and error below)\n  },\n  error=function(cond) {\n    message(paste(\"Problem with URL:\", as.character(mydata[[loop_start,2]])))\n    message(paste(\"Error in row:\", loop_start))\n    # Choose a return value in case of error\n    mydata[[loop_start,new_column]] <- as.character(\"Error\")\n  },\n  warning=function(cond) {\n    message(paste(\"URL caused a warning:\", as.character(mydata[[loop_start,2]])))\n    message(\"Here's the original warning message:\")\n    message(cond)\n    # Choose a return value in case of warning\n    mydata[[loop_start,new_column]] <- as.character(\"Warning\")\n  },\n  finally={\n    # NOTE:\n    # Here goes everything that should be executed at the end,\n    # regardless of success or error.\n    # If you want more than one expression to be executed, then you \n    # need to wrap them in curly brackets ({...}); otherwise you could\n    # just have written 'finally=<expression>' \n    loop_start <- loop_start +1\n    Sys.sleep(0.1) #Delay to prevent the server getting angry at too requests\n  }\n)}\n\n#Don't Tell Mom the Babysitter is Dead\ncat(\"The Dishes are done man. I finished on row:\", loop_start) \n\n",
+    "created" : 1468642408199.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3308557041",
+    "id" : "DDEFB978",
+    "lastKnownWriteTime" : 1468817812,
+    "last_content_update" : 1468817812332,
+    "path" : "~/data_science/Try-Catch Version.R",
+    "project_path" : "Try-Catch Version.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
