@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "loop_start <-1 #Start scraping on this row\nloop_stop <-as.integer(nrow(mydata))\nxpath <- as.character(\"//meta[@property='og:title']\")\nnew_column <- 11 #Set the column for the new data\nfor (i in loop_start:loop_stop){\n  tryCatch(\n    {\n      result_content <- as.character(get_meta_content(as.character(mydata[[loop_start,2]])))\n      mydata[[loop_start,new_column]] <- iconv(result_content)\n      message(paste( \"Completed Row: \", loop_start)) \n    },\n    error=function(cond) {\n      message(paste(\"Problem with URL:\", as.character(mydata[[loop_start,2]])))\n      message(paste(\"Error in row:\", loop_start))\n      mydata[[loop_start,new_column]] <- as.character(\"Error\")\n    },\n    warning=function(cond) {\n      message(paste(\"URL caused a warning:\", as.character(mydata[[loop_start,2]])))\n      message(\"Here's the original warning message:\")\n      message(cond)\n      mydata[[loop_start,new_column]] <- as.character(\"Warning\")\n    },\n    finally={\n      loop_start <- loop_start +1\n      Sys.sleep(1) #Delay to prevent the server getting angry at too requests\n    }\n  )}\ncat(\"The Dishes are done man. I finished on row:\", loop_start) ",
+    "created" : 1468643647988.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1717251118",
+    "id" : "8681545C",
+    "lastKnownWriteTime" : 1469047094,
+    "last_content_update" : 1469047094776,
+    "path" : "~/data_science/Website Meta Tag Scrap - PureCode.R",
+    "project_path" : "Website Meta Tag Scrap - PureCode.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

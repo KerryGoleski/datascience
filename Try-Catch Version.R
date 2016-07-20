@@ -12,9 +12,6 @@ for (i in loop_start:loop_stop){
 
 tryCatch(
   {
-    # Just to highlight: if you want to use more than one 
-    # R expression in the "try" part then you'll have to 
-    # use curly brackets.
     # 'tryCatch()' will return the last evaluated expression 
     # in case the "try" part was completed successfully
     
@@ -54,5 +51,5 @@ tryCatch(
 )}
 
 #Don't Tell Mom the Babysitter is Dead
-cat("The Dishes are done man. I finished on row:", loop_start) 
+message(paste("The Dishes are done man. I finished on row: ", loop_start))
 

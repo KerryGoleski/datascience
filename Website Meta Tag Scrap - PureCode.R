@@ -6,7 +6,7 @@ for (i in loop_start:loop_stop){
   tryCatch(
     {
       result_content <- as.character(get_meta_content(as.character(mydata[[loop_start,2]])))
-      mydata[[loop_start,new_column]] <- result_content
+      mydata[[loop_start,new_column]] <- iconv(result_content)
       message(paste( "Completed Row: ", loop_start)) 
     },
     error=function(cond) {
